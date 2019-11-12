@@ -53,8 +53,7 @@ afterAll(supertester.stopDB);
 
 describe('The proper authorization is implemented with routes', () => {
   it('Allows unauthenticated users to access the /public route', async () => {
-    let test = await mockServer.get('./public');
-    console.log('TEST: ', test);
+    let test = await mockServer.get('/role/public');
     expect(test.status).toBe(200);
   });
   it('xxx', () => {});
