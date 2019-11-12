@@ -1,9 +1,9 @@
 'use strict';
 
 const { startDB, stopDB } = require('./supertester.js');
-const auth = require('../src/auth/middleware.js');
-const Users = require('../src/auth/users-model.js');
-const Roles = require('../src/auth/roles-model.js');
+const auth = require('../src/middleware/auth');
+const Users = require('../src/models/users-model');
+const Roles = require('../src/models/roles-model');
 
 let users = {
   admin: {

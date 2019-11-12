@@ -4,11 +4,11 @@ process.env.SECRET = 'test';
 
 const jwt = require('jsonwebtoken');
 
-const Roles = require('../src/auth/roles-model.js');
+const Roles = require('../src/models/roles-model');
 const server = require('../src/server.js').server;
 const supertester = require('./supertester.js');
 
-const mockRequest = supertester.server(server);
+const mockServer = supertester.server(server);
 
 let users = {
   admin: {
@@ -42,14 +42,24 @@ let roles = {
 
 beforeAll(async done => {
   await supertester.startDB();
-  const admin = await new Roles(roles.admin).save();
-  const editor = await new Roles(roles.editor).save();
-  const user = await new Roles(roles.user).save();
+  console.log(await new Roles(roles.admin));
+  const admin = new Roles(roles.admin).save();
+  const editor = new Roles(roles.editor).save();
+  const user = new Roles(roles.user).save();
   done();
 });
 
 afterAll(supertester.stopDB);
 
-/* describe('xxx', () => {
-  it('xxx', () => { }); 
-}); */
+describe('The proper authorization is implemented with routes', () => {
+  it('Allows unauthenticated users to access the /public route', async () => {
+    let test = await mockServer.get('./public');
+    console.log('TEST: ', test);
+    expect(test.status).toBe(200);
+  });
+  it('xxx', () => {});
+  it('xxx', () => {});
+  it('xxx', () => {});
+  it('xxx', () => {});
+  it('xxx', () => {});
+});

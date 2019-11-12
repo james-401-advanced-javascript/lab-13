@@ -8,7 +8,11 @@ const err403 = require('../middleware/403');
 const Roles = require('../models/roles-model');
 const roles = new Roles();
 
-// TODO: Swagger Comments
+/**
+ * @route GET /public
+ * This route allows all authenticated and un-authenticated users to access it
+ * @returns {string} 200 - the valid property with a value of true/ displays confirmation message
+ */
 // Visible by all clients
 router.get('/public', (req, res, next) => {
   res.status(200).json({ valid: true });
@@ -31,7 +35,12 @@ async function checkAccess(req, res, next, accessParam) {
 
 // === TODO: Define all the routes below ======
 
-// TODO: Swagger Comments
+/**
+ * @route GET /hidden
+ * This route allows only authenticated users to access it
+ * @returns {string} 200 - the valid property with a value of true/ displays confirmation message
+ * @returns {string} 403 - if no user is found, returns string "Unable to find user"
+ */
 // Visible by logged in clients
 router.get('/hidden', (req, res, next) => {
   if (req.user && req.user._id) {
@@ -40,6 +49,13 @@ router.get('/hidden', (req, res, next) => {
 });
 
 // TODO: Swagger Comments
+/**
+ * @route POST /signup
+ * This route creates a new user in our database
+ * @param {string}  username.body.required   We need a username in order to create a user
+ * @param {string}  password.body.required   We need a password in order to create a user
+ * @returns {string} 200 - The Bearer token
+ */
 // Visible by roles that have the "read" capability
 router.get('/read-only', (req, res, next) => {
   checkAccess(req, res, next, 'read');

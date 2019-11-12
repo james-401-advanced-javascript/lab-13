@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const Model = require('./model.js');
-const schema = require('./users-schema.js');
+const Model = require("./model.js");
+const schema = require("./users-schema.js");
 
 /**
  * A class representing the user model in our database.
@@ -25,6 +25,10 @@ class Users extends Model {
    */
   authBasic(credentials) {
     return this.schema.authenticateBasic(credentials);
+  }
+
+  can(role) {
+    this.capabilities.includes(role) ? true : false;
   }
 }
 
