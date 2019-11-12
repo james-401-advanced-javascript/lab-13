@@ -21,13 +21,6 @@ const users = new mongoose.Schema({
   },
 });
 
-// === TODO: Implement a virtual connection between users and roles, so that we can access
-// === user capabilities easily =====
-// === Utilize virtuals and the populate() mongoose method ===
-
-// === TODO: Implement a methods function can() which takes a string and returns true/false if
-// === the user has that capability ===
-
 /**
  * Pre middleware which converts a string password into a hashed password before every save to MongoDB
  */
@@ -58,8 +51,8 @@ users.statics.authenticateBasic = async function(auth) {
  * Because this is a methods function, `this` refers to an individual user record
  * @return {string} The generated jwt token
  */
-// === TODO implement timeout functionality for this token ====
-// === You can have your code pass generateToken a flag that ===
+// === Implement timeout functionality for this token ====
+// === Have code pass generateToken a flag that ===
 // === sets a long or short (5 sec) timeout ===
 // If the timeout param has been passed, set timeout for 5 secs
 // otherwise, timeout is 1 hour
@@ -71,7 +64,7 @@ users.methods.generateToken = function(timeout) {
     id: this._id,
   };
 
-  return jwt.sign({ exp, data: tokenData   }, secret);
+  return jwt.sign({ exp, data: tokenData }, secret);
 };
 
 /**

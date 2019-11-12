@@ -33,8 +33,6 @@ async function checkAccess(req, res, next, accessParam) {
   } else next('Unable to find user');
 }
 
-// === TODO: Define all the routes below ======
-
 /**
  * @route GET /hidden
  * This route allows only authenticated users to access it
@@ -48,38 +46,56 @@ router.get('/hidden', (req, res, next) => {
   } else next('Unable to find user');
 });
 
-// TODO: Swagger Comments
 /**
- * @route POST /signup
- * This route creates a new user in our database
- * @param {string}  username.body.required   We need a username in order to create a user
- * @param {string}  password.body.required   We need a password in order to create a user
- * @returns {string} 200 - The Bearer token
+ * @route GET /read-only
+ * This route allows only authenticated users who are authorized with read capabilities to access it
+ * @returns {string} 200 - the valid property with a value of true/ displays confirmation message
+ * @returns {string} 403 - if no user is found, returns string "Unable to find user"
  */
 // Visible by roles that have the "read" capability
 router.get('/read-only', (req, res, next) => {
   checkAccess(req, res, next, 'read');
 });
 
-// TODO: Swagger Comments
+/**
+ * @route POST /create
+ * This route allows only authenticated users who are authorized with create capabilities to access it
+ * @returns {string} 200 - the valid property with a value of true/ displays confirmation message
+ * @returns {string} 403 - if no user is found, returns string "Unable to find user"
+ */
 // Accessible by roles that have the "create" capability
 router.post('/create', (req, res, next) => {
   checkAccess(req, res, next, 'create');
 });
 
-// TODO: Swagger Comments
+/**
+ * @route PUT /update/:id
+ * This route allows only authenticated users who are authorized with update capabilities to access it
+ * @returns {string} 200 - the valid property with a value of true/ displays confirmation message
+ * @returns {string} 403 - if no user is found, returns string "Unable to find user"
+ */
 // Accessible by roles that have the "update" capability
 router.put('/update/:id', (req, res, next) => {
   checkAccess(req, res, next, 'update');
 });
 
-// TODO: Swagger Comments
+/**
+ * @route DELETE /delete/:id
+ * This route allows only authenticated users who are authorized with delete capabilities to access it
+ * @returns {string} 200 - the valid property with a value of true/ displays confirmation message
+ * @returns {string} 403 - if no user is found, returns string "Unable to find user"
+ */
 // Accessible by roles that have the "delete" capability
 router.delete('/delete/:id', (req, res, next) => {
   checkAccess(req, res, next, 'delete');
 });
 
-// TODO: Swagger Comments
+/**
+ * @route GET /super
+ * This route allows only authenticated users who are authorized with superuser capabilities to access it
+ * @returns {string} 200 - the valid property with a value of true/ displays confirmation message
+ * @returns {string} 403 - if no user is found, returns string "Unable to find user"
+ */
 // Visible by roles that have the "superuser" capability
 router.get('/super', (req, res, next) => {
   checkAccess(req, res, next, 'superuser');
