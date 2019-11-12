@@ -8,7 +8,7 @@
 
 - [submission PR](https://github.com/james-401-advanced-javascript/lab-13/pull/1)
 - [travis](https://travis-ci.com/james-401-advanced-javascript/lab-13)
-- [front-end](https://jamesdunn-lab-11.herokuapp.com)
+- [front-end](https://jamesdunn-lab-13.herokuapp.com)
 
 ### Modules
 

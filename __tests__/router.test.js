@@ -41,11 +41,11 @@ let roles = {
 };
 
 beforeAll(async done => {
+  let rolesDB = new Roles();
   await supertester.startDB();
-  console.log(await new Roles(roles.admin));
-  const admin = new Roles(roles.admin).save();
-  const editor = new Roles(roles.editor).save();
-  const user = new Roles(roles.user).save();
+  await rolesDB.create(roles.admin);
+  await rolesDB.create(roles.editor);
+  await rolesDB.create(roles.user);
   done();
 });
 
