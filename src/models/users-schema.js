@@ -61,13 +61,17 @@ users.statics.authenticateBasic = async function(auth) {
 // === TODO implement timeout functionality for this token ====
 // === You can have your code pass generateToken a flag that ===
 // === sets a long or short (5 sec) timeout ===
-users.methods.generateToken = function() {
+// If the timeout param has been passed, set timeout for 5 secs
+// otherwise, timeout is 1 hour
+users.methods.generateToken = function(timeout) {
+  let exp = Math.floor(Date.now() / 1000 + 60 * 60);
+  if (timeout) exp = Math.floor(Date.now() / 1000 + 5);
   let secret = process.env.SECRET || 'this-is-my-secret';
-  let data = {
+  let tokenData = {
     id: this._id,
   };
 
-  return jwt.sign(data, secret);
+  return jwt.sign({ exp, data: tokenData   }, secret);
 };
 
 /**

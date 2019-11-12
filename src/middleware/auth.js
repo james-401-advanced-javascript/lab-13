@@ -38,11 +38,13 @@ async function basicAuth(encodedCredentials) {
 async function bearerAuth(token) {
   let secret = process.env.SECRET || 'this-is-my-secret';
   let data;
+  console.log('DATA DOE: ', jwt.verify(token, secret));
+  console.log('TOKEN DOE: ', token);
 
   // === TODO: Update the below code when you implement timed JWT ===
 
   try {
-    data = jwt.verify(token, secret);
+    data = jwt.verify(token, secret).data;
   } catch (e) {
     return { err: e.name };
   }
@@ -71,7 +73,7 @@ module.exports = async (req, res, next) => {
   else if (authType == 'Bearer') user = await bearerAuth(encodedData);
 
   if (user && user._id) {
-    let token = 'Bearer ' + user.generateToken();
+    let token = 'Bearer ' + user.generateToken(req.headers.timeout);
     req.user = user;
     req.token = token;
     next();
