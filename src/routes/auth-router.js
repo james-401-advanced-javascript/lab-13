@@ -34,6 +34,7 @@ router.post('/signup', async (req, res, next) => {
  * @returns {string} 200 - The Bearer token
  */
 router.post('/signin', auth, err401, (req, res, next) => {
+  console.log('HIPPITY HOPPITY: ', req);
   res.status(200).json({ token: req.token });
 });
 

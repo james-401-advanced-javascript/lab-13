@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
  * @return {object}               An object containing the decoded, plain-text username and password
  */
 function basicDecode(authString) {
+  console.log('HERE IT IS: ', authString);
   let base64Buffer = Buffer.from(authString, 'base64'); // base64 buffer conversion of string
   let bufferString = base64Buffer.toString(); // conversion from base64 buffer back to string
   let [username, password] = bufferString.split(':'); // split string using delimiter : to get pieces
@@ -57,7 +58,8 @@ async function bearerAuth(token) {
  */
 module.exports = async (req, res, next) => {
   let auth, authType, encodedData, user;
-
+  console.log('HEADERS: ', Object.keys(req));
+  console.log('HEADERS: ', req.headers);
   if (req.headers.authorization) auth = req.headers.authorization.split(/\s+/);
 
   if (auth && auth.length == 2) {
